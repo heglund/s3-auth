@@ -109,7 +109,8 @@ def s3_auth_headers(url):
 def process_request_options(options):
     """Make changes to options dict and return it.
        This is the fuction that munki calls."""
-    if 's3.amazonaws.com' in options['url']:
+    URL_WITH_REGION = 's3-' + REGION + '.amazonaws.com'
+    if ('s3.amazonaws.com' in options['url']) or (URL_WITH_REGION in options['url']):
         headers = s3_auth_headers(options['url'])
         options['additional_headers'].update(headers)
     return options
